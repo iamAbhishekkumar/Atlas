@@ -1,15 +1,27 @@
 <script lang="ts">
-	let keyword = "";
+	import Emoji from "./Emoji.svelte";
+	import Gif from "./Gif.svelte";
+
+	let toSearch = "";
+	const options = [{ component: Emoji }, { component: Gif }];
+	let selected = options[0];
+
+	function toggle() {
+		if(selected == options[0]){
+			selected = options[1];
+		}else{
+			selected = options[0];
+		}
+	}
 </script>
 
-<input bind:value={keyword} id="search-bar" type="name" placeholder="Search">
-<h1> Abhishek Kumar</h1>
-<p>
-	{keyword}
-</p>
 
-<style>
-	input {
-        color: greenyellow;
-    }
-</style>
+<input bind:value={toSearch} placeholder="Search"/>
+
+
+<button on:click={toggle}>
+	<svelte:component this={selected.component}/>
+</button>
+
+<div>text : {toSearch}</div>
+
